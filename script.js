@@ -1,0 +1,11 @@
+const pagesBtn=document.getElementById('pagesBtn');
+const pagesMenu=document.getElementById('pagesMenu');
+pagesBtn.addEventListener('click',()=>{const open=pagesMenu.classList.toggle('open');pagesBtn.setAttribute('aria-expanded',String(open));});
+document.addEventListener('click',(e)=>{if(!e.target.closest('.nav-wrap')){pagesMenu.classList.remove('open');pagesBtn.setAttribute('aria-expanded','false');}});
+pagesMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>pagesMenu.classList.remove('open')));
+const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target);}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+const backTop=document.getElementById('backTop');
+window.addEventListener('scroll',()=>backTop.classList.toggle('show',window.scrollY>450));
+backTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+document.getElementById('year').textContent=new Date().getFullYear();
